@@ -1,5 +1,5 @@
 # gson-java8-datatype
-Java8 data type(Optional and DateTime) moudle for gson
+Java8 data type(Optional and DateTime) module for gson
 
 ## Get from maven central repo
 ```xml
