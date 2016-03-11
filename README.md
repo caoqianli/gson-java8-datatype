@@ -1,5 +1,5 @@
 # gson-java8-datatype
-Java8 data type moudle for gson
+Java8 data type(Optional and DateTime) moudle for gson
 
 ## Get from maven central repo
 ```xml
@@ -12,14 +12,14 @@ Java8 data type moudle for gson
 
 
 ## Register
-```Java
+```java
 Gson gson = new GsonBuilder().registerTypeAdapterFactory(new GsonJava8TypeAdapterFactory()).create();
 ```
 
 
 ## Optinal Types
 Empty Optional value is treated as null; Non-empty optional value is treat as optional.get() 
-```
+```java
 assertEquals("10", gson.toJson(OptionalInt.of(10)));
 assertEquals(OptionalInt.of(10), gson.fromJson("10", OptionalInt.class));
 assertEquals("null", gson.toJson(OptionalInt.empty()));
@@ -52,7 +52,7 @@ assertEquals(Optional.empty(), gson.fromJson("null", Optional.class));
 ## DateTime Types
 Java8 new datetime types serialized using ISO-9601 format 
 
-```
+```java
 ZoneId zoneId = ZoneId.of("Asia/Shanghai");
 Instant instant = Instant.ofEpochMilli(1457595643101L);
 assertEquals("\"2016-03-10T07:40:43.101Z\"", gson.toJson(instant));
