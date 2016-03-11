@@ -43,39 +43,27 @@ Java8 new datetime types serialized using ISO-9601 format
 ```java
 ZoneId zoneId = ZoneId.of("Asia/Shanghai");
 Instant instant = Instant.ofEpochMilli(1457595643101L);
-assertEquals("\"2016-03-10T07:40:43.101Z\"", gson.toJson(instant));
-assertEquals(instant, gson.fromJson("\"2016-03-10T07:40:43.101Z\"", Instant.class));
+gson.toJson(instant); // "2016-03-10T07:40:43.101Z"
 ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(instant, zoneId);
-assertEquals("\"2016-03-10T15:40:43.101+08:00[Asia/Shanghai]\"", gson.toJson(zonedDateTime));
-assertEquals(zonedDateTime, gson.fromJson("\"2016-03-10T15:40:43.101+08:00[Asia/Shanghai]\"", ZonedDateTime.class));
+gson.toJson(zonedDateTime); // "2016-03-10T15:40:43.101+08:00[Asia/Shanghai]"
 LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zoneId);
-assertEquals("\"2016-03-10T15:40:43.101\"", gson.toJson(localDateTime));
-assertEquals(localDateTime, gson.fromJson("\"2016-03-10T15:40:43.101\"", LocalDateTime.class));
+gson.toJson(localDateTime); // "2016-03-10T15:40:43.101"
 LocalDate localDate = localDateTime.toLocalDate();
-assertEquals("\"2016-03-10\"", gson.toJson(localDate));
-assertEquals(localDate, gson.fromJson("\"2016-03-10\"", LocalDate.class));
+gson.toJson(localDate); // "2016-03-10"
 LocalTime localTime = localDateTime.toLocalTime();
-assertEquals("\"15:40:43.101\"", gson.toJson(localTime));
-assertEquals(localTime, gson.fromJson("\"15:40:43.101\"", LocalTime.class));
+gson.toJson(localTime); // "15:40:43.101"
 OffsetDateTime offsetDateTime = OffsetDateTime.ofInstant(instant, zoneId);
-assertEquals("\"2016-03-10T15:40:43.101+08:00\"", gson.toJson(offsetDateTime));
-assertEquals(offsetDateTime, gson.fromJson("\"2016-03-10T15:40:43.101+08:00\"", OffsetDateTime.class));
+gson.toJson(offsetDateTime); // "2016-03-10T15:40:43.101+08:00"
 OffsetTime offsetTime = offsetDateTime.toOffsetTime();
-assertEquals("\"15:40:43.101+08:00\"", gson.toJson(offsetTime));
-assertEquals(offsetTime, gson.fromJson("\"15:40:43.101+08:00\"", OffsetTime.class));
+gson.toJson(offsetTime); // "15:40:43.101+08:00"
 
 YearMonth yearMonth = YearMonth.of(2016, 3);
-assertEquals("\"2016-03\"", gson.toJson(yearMonth));
-assertEquals(yearMonth, gson.fromJson("\"2016-03\"", YearMonth.class));
+gson.toJson(yearMonth); // "2016-03"
 Year year = Year.of(2016);
-assertEquals("\"2016\"", gson.toJson(year));
-assertEquals(year, gson.fromJson("\"2016\"", Year.class));
+gson.toJson(year); // "2016"
 
 Period period = Period.ofDays(1);
-assertEquals("\"P1D\"", gson.toJson(period));
-assertEquals(period, gson.fromJson("\"P1D\"", Period.class));
-
+gson.toJson(period); // "P1D"
 Duration duration = Duration.ofDays(1);
-assertEquals("\"P1D\"", gson.toJson(period));
-assertEquals(duration, gson.fromJson("\"P1D\"", Duration.class));
+gson.toJson(period); // "P1D"
 ```
