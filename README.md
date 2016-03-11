@@ -20,34 +20,22 @@ Gson gson = new GsonBuilder().registerTypeAdapterFactory(new GsonJava8TypeAdapte
 ## Optinal Types
 Empty Optional value is treated as null; Non-empty optional value is treat as optional.get() 
 ```java
-assertEquals("10", gson.toJson(OptionalInt.of(10)));
-assertEquals(OptionalInt.of(10), gson.fromJson("10", OptionalInt.class));
-assertEquals("null", gson.toJson(OptionalInt.empty()));
-assertEquals(OptionalInt.empty(), gson.fromJson("null", OptionalInt.class));
-assertEquals("10", gson.toJson(OptionalLong.of(10)));
-assertEquals(OptionalLong.of(10), gson.fromJson("10", OptionalLong.class));
-assertEquals("10.0", gson.toJson(OptionalDouble.of(10.0)));
-assertEquals(OptionalDouble.of(10.0), gson.fromJson("10.0", OptionalDouble.class));
+gson.toJson(OptionalInt.of(10)); // 10
+gson.fromJson("10", OptionalInt.class); // = OptionalInt.of(10)
+gson.toJson(OptionalInt.empty()); // null
+gson.fromJson("null", OptionalInt.class); // = OptionalInt.empty()
 
-assertEquals("\"test\"", gson.toJson(Optional.of("test")));
-assertEquals("\"test\"", gson.toJson(Optional.of(Optional.of("test"))));
+gson.toJson(Optional.of("test")); // "test"
+gson.toJson(Optional.of(Optional.of("test"))); // "test"
 
-assertEquals("null", gson.toJson(Optional.empty()));
-assertEquals("null", gson.toJson(Optional.of(Optional.empty())));
-assertEquals(Optional.of("test"), gson.fromJson("\"test\"", new TypeToken<Optional<String>>() {
-}.getType()));
-assertEquals(Optional.of(Optional.of("test")), gson.fromJson("\"test\"", new TypeToken<Optional<Optional<String>>>() {
-}.getType()));
-assertEquals("null", gson.toJson(Optional.empty()));
-assertEquals(Optional.empty(), gson.fromJson("null", new TypeToken<Optional<String>>() {
-}.getType()));
-assertEquals(Optional.empty(), gson.fromJson("null", new TypeToken<Optional<Optional<String>>>() {
-}.getType()));
-assertEquals(Optional.empty(), gson.fromJson("null", Optional.class));
+gson.toJson(Optional.empty()); // null
+gson.toJson(Optional.of(Optional.empty())); // null
+gson.fromJson("\"test\"", new TypeToken<Optional<String>>() {}.getType()); // = Optional.of("test")
+gson.fromJson("\"test\"", new TypeToken<Optional<Optional<String>>>() {}.getType()); // =Optional.of(Optional.of("test"))
+gson.fromJson("null", new TypeToken<Optional<String>>() {}.getType()); // = Optional.empty()
+gson.fromJson("null", new TypeToken<Optional<Optional<String>>>() {}.getType()); // = Optional.empty()
+gson.fromJson("null", Optional.class); // = Optional.empty()
 ```
-
-
-
 
 ## DateTime Types
 Java8 new datetime types serialized using ISO-9601 format 
