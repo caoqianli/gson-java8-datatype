@@ -1,5 +1,5 @@
 [![](https://travis-ci.org/caoqianli/gson-java8-datatype.svg)](https://travis-ci.org/caoqianli/gson-java8-datatype)
-[![License](https://img.shields.io/badge/licence-BSD%203--Clause-blue.svg?style=flat)]
+![License](https://img.shields.io/badge/licence-BSD%203--Clause-blue.svg?style=flat)
 
 Java8 data type(Optional and DateTime) module for gson
 
