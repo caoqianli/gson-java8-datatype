@@ -7,7 +7,7 @@
     <artifactId>gson-java8-datatype</artifactId>
     <name>Java8 data type moudle for gson</name>
     <packaging>jar</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <url>https://github.com/caoqianli/gson-java8-datatype</url>
 
     <parent>
