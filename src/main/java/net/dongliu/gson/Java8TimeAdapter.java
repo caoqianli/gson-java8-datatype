@@ -17,10 +17,10 @@ import static java.time.format.DateTimeFormatter.*;
  * @author Liu Dong
  */
 class Java8TimeAdapter extends TypeAdapter<TemporalAccessor> {
-    private final DateTimeFormatter dtf;
+    private final DateTimeFormatter readFormatter, writeFormatter;
     private final TemporalQuery<TemporalAccessor> temporalQuery;
 
-    static final Java8TimeAdapter instantAdapter = new Java8TimeAdapter(ISO_INSTANT, Instant::from);
+    static final Java8TimeAdapter instantAdapter = new Java8TimeAdapter(ISO_OFFSET_DATE_TIME, ISO_INSTANT, Instant::from);
     static final Java8TimeAdapter localDateAdapter = new Java8TimeAdapter(ISO_LOCAL_DATE, LocalDate::from);
     static final Java8TimeAdapter localDateTimeAdapter = new Java8TimeAdapter(ISO_LOCAL_DATE_TIME, LocalDateTime::from);
     static final Java8TimeAdapter localTimeAdapter = new Java8TimeAdapter(ISO_LOCAL_TIME, LocalTime::from);
@@ -29,7 +29,12 @@ class Java8TimeAdapter extends TypeAdapter<TemporalAccessor> {
     static final Java8TimeAdapter zonedDateTimeAdapter =new Java8TimeAdapter(ISO_ZONED_DATE_TIME, ZonedDateTime::from);
 
     public Java8TimeAdapter(DateTimeFormatter dtf, TemporalQuery<TemporalAccessor> temporalQuery) {
-        this.dtf = dtf;
+        this(dtf, dtf, temporalQuery);
+    }
+
+    public Java8TimeAdapter(final DateTimeFormatter readFormatter, final DateTimeFormatter writeFormatter, final TemporalQuery<TemporalAccessor> temporalQuery) {
+        this.readFormatter = readFormatter;
+        this.writeFormatter = writeFormatter;
         this.temporalQuery = temporalQuery;
     }
 
@@ -40,7 +45,7 @@ class Java8TimeAdapter extends TypeAdapter<TemporalAccessor> {
             out.nullValue();
             return;
         }
-        String str = dtf.format(value);
+        String str = writeFormatter.format(value);
         out.value(str);
     }
 
@@ -51,6 +56,6 @@ class Java8TimeAdapter extends TypeAdapter<TemporalAccessor> {
             return null;
         }
         String str = in.nextString();
-        return dtf.parse(str, temporalQuery);
+        return readFormatter.parse(str, temporalQuery);
     }
 }

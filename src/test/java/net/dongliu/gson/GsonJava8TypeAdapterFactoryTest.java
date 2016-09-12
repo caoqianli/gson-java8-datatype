@@ -27,6 +27,7 @@ public class GsonJava8TypeAdapterFactoryTest {
         Instant instant = Instant.ofEpochMilli(1457595643101L);
         assertEquals("\"2016-03-10T07:40:43.101Z\"", gson.toJson(instant));
         assertEquals(instant, gson.fromJson("\"2016-03-10T07:40:43.101Z\"", Instant.class));
+        assertEquals(instant, gson.fromJson("\"2016-03-10T08:40:43.101+01:00\"", Instant.class));
         ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(instant, zoneId);
         assertEquals("\"2016-03-10T15:40:43.101+08:00[Asia/Shanghai]\"", gson.toJson(zonedDateTime));
         assertEquals(zonedDateTime, gson.fromJson("\"2016-03-10T15:40:43.101+08:00[Asia/Shanghai]\"", ZonedDateTime.class));
