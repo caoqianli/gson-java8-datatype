@@ -1,5 +1,3 @@
-![License](https://img.shields.io/badge/licence-BSD%203--Clause-blue.svg?style=flat)
-
 Java8 data type(Optional and DateTime) module for gson
 
 ## Get from maven central repo
