@@ -17,7 +17,6 @@ class OptionalDoubleAdapter extends TypeAdapter<OptionalDouble> {
 
     @Override
     public void write(JsonWriter out, OptionalDouble value) throws IOException {
-        // value type should not be null
         if (value == null) {
             out.nullValue();
             return;
@@ -31,7 +30,6 @@ class OptionalDoubleAdapter extends TypeAdapter<OptionalDouble> {
 
     @Override
     public OptionalDouble read(JsonReader in) throws IOException {
-        // value type should not be null
         if (in.peek() == JsonToken.NULL) {
             in.nextNull();
             return OptionalDouble.empty();

@@ -17,7 +17,6 @@ class PeriodAdapter extends TypeAdapter<Period> {
 
     @Override
     public void write(JsonWriter out, Period period) throws IOException {
-        // value type should not be null
         if (period == null) {
             out.nullValue();
             return;
@@ -27,7 +26,6 @@ class PeriodAdapter extends TypeAdapter<Period> {
 
     @Override
     public Period read(JsonReader in) throws IOException {
-        // value type should not be null
         if (in.peek() == JsonToken.NULL) {
             in.nextNull();
             return null;

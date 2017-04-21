@@ -7,7 +7,7 @@
     <artifactId>gson-java8-datatype</artifactId>
     <name>Java8 data type moudle(DateTime and Optional) for gson</name>
     <packaging>jar</packaging>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <url>https://github.com/caoqianli/gson-java8-datatype</url>
 
     <parent>
@@ -44,6 +44,7 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.6.2</version>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

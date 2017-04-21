@@ -17,7 +17,6 @@ class YearAdapter extends TypeAdapter<Year> {
 
     @Override
     public void write(JsonWriter out, Year year) throws IOException {
-        // value type should not be null
         if (year == null) {
             out.nullValue();
             return;
@@ -27,7 +26,6 @@ class YearAdapter extends TypeAdapter<Year> {
 
     @Override
     public Year read(JsonReader in) throws IOException {
-        // value type should not be null
         if (in.peek() == JsonToken.NULL) {
             in.nextNull();
             return null;

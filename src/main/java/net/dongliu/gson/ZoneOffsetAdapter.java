@@ -18,7 +18,6 @@ class ZoneOffsetAdapter extends TypeAdapter<ZoneOffset> {
 
     @Override
     public void write(JsonWriter out, ZoneOffset zoneOffset) throws IOException {
-        // value type should not be null
         if (zoneOffset == null) {
             out.nullValue();
             return;
@@ -28,7 +27,6 @@ class ZoneOffsetAdapter extends TypeAdapter<ZoneOffset> {
 
     @Override
     public ZoneOffset read(JsonReader in) throws IOException {
-        // value type should not be null
         if (in.peek() == JsonToken.NULL) {
             in.nextNull();
             return null;

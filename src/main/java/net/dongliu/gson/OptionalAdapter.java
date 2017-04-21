@@ -27,7 +27,7 @@ class OptionalAdapter<T> extends TypeAdapter<Optional<T>> {
 
     @Override
     public void write(JsonWriter out, Optional<T> value) throws IOException {
-        // should not be null
+        // optional should not be null
         if (value == null) {
             out.nullValue();
             return;

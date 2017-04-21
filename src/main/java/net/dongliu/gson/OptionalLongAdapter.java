@@ -17,7 +17,6 @@ class OptionalLongAdapter extends TypeAdapter<OptionalLong> {
 
     @Override
     public void write(JsonWriter out, OptionalLong value) throws IOException {
-        // value type should not be null
         if (value == null) {
             out.nullValue();
             return;
@@ -31,7 +30,6 @@ class OptionalLongAdapter extends TypeAdapter<OptionalLong> {
 
     @Override
     public OptionalLong read(JsonReader in) throws IOException {
-        // value type should not be null
         if (in.peek() == JsonToken.NULL) {
             in.nextNull();
             return OptionalLong.empty();

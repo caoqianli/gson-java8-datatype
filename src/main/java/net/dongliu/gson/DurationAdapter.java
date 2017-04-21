@@ -17,7 +17,6 @@ class DurationAdapter extends TypeAdapter<Duration> {
 
     @Override
     public void write(JsonWriter out, Duration duration) throws IOException {
-        // value type should not be null
         if (duration == null) {
             out.nullValue();
             return;
@@ -27,7 +26,6 @@ class DurationAdapter extends TypeAdapter<Duration> {
 
     @Override
     public Duration read(JsonReader in) throws IOException {
-        // value type should not be null
         if (in.peek() == JsonToken.NULL) {
             in.nextNull();
             return null;

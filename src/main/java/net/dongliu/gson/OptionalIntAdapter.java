@@ -17,7 +17,6 @@ class OptionalIntAdapter extends TypeAdapter<OptionalInt> {
 
     @Override
     public void write(JsonWriter out, OptionalInt value) throws IOException {
-        // value type should not be null
         if (value == null) {
             out.nullValue();
             return;
@@ -31,7 +30,6 @@ class OptionalIntAdapter extends TypeAdapter<OptionalInt> {
 
     @Override
     public OptionalInt read(JsonReader in) throws IOException {
-        // value type should not be null
         if (in.peek() == JsonToken.NULL) {
             in.nextNull();
             return OptionalInt.empty();
