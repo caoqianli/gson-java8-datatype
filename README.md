@@ -5,7 +5,7 @@ Java8 data type(Optional and DateTime) module for gson
 <dependency>
     <groupId>net.dongliu</groupId>
     <artifactId>gson-java8-datatype</artifactId>
-    <version>1.0.3/version>
+    <version>1.0.3</version>
 </dependency>
 ```
 
