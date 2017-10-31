@@ -70,7 +70,7 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Automatic-Module-Name>net.dongliu.gson.java8</Automatic-Module-Name>
+                            <Automatic-Module-Name>net.dongliu.gson.java8type</Automatic-Module-Name>
                         </manifestEntries>
                     </archive>
                 </configuration>
