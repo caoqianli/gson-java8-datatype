@@ -6,23 +6,21 @@ import com.google.gson.reflect.TypeToken;
 import org.junit.Test;
 
 import java.time.*;
-import java.util.Optional;
-import java.util.OptionalDouble;
-import java.util.OptionalInt;
-import java.util.OptionalLong;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author Liu Dong
  */
 public class GsonJava8TypeAdapterFactoryTest {
 
-    private Gson gson = new GsonBuilder().registerTypeAdapterFactory(new GsonJava8TypeAdapterFactory()).create();
-
+    // java8 datetime
     @Test
     public void testDateTimeMarshal() throws Exception {
-        // java8 datetime
+        Gson gson = new GsonBuilder().registerTypeAdapterFactory(new GsonJava8TypeAdapterFactory()).create();
         ZoneId zoneId = ZoneId.of("Asia/Shanghai");
         Instant instant = Instant.ofEpochMilli(1457595643101L);
         assertEquals("\"2016-03-10T07:40:43.101Z\"", gson.toJson(instant));
@@ -67,6 +65,7 @@ public class GsonJava8TypeAdapterFactoryTest {
 
     @Test
     public void testOptional() {
+        Gson gson = new GsonBuilder().registerTypeAdapterFactory(new GsonJava8TypeAdapterFactory()).create();
         assertEquals("10", gson.toJson(OptionalInt.of(10)));
         assertEquals(OptionalInt.of(10), gson.fromJson("10", OptionalInt.class));
         assertEquals("null", gson.toJson(OptionalInt.empty()));
@@ -93,4 +92,15 @@ public class GsonJava8TypeAdapterFactoryTest {
         assertEquals(Optional.empty(), gson.fromJson("null", Optional.class));
     }
 
+    @Test
+    public void testCustomFormatter() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH)
+                .withZone(ZoneId.of("Asia/Shanghai"));
+        GsonJava8TypeAdapterFactory typeAdapterFactory = new GsonJava8TypeAdapterFactory()
+                .setInstantFormatter(formatter);
+        Gson gson = new GsonBuilder().registerTypeAdapterFactory(typeAdapterFactory).create();
+        Instant instant = Instant.ofEpochMilli(1457595643101L);
+        assertEquals("\"2016-03-10 15:40:43.101\"", gson.toJson(instant));
+        assertEquals(instant, gson.fromJson("\"2016-03-10 15:40:43.101\"", Instant.class));
+    }
 }

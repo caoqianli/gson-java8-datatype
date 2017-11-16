@@ -6,12 +6,10 @@ import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
-import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.time.temporal.TemporalQuery;
-
-import static java.time.format.DateTimeFormatter.*;
+import java.util.Objects;
 
 /**
  * Gson type adapter for java8 DateTimes.
@@ -32,29 +30,27 @@ public class Java8TimeAdapter<T extends TemporalAccessor> extends TypeAdapter<T>
      */
     private final TemporalQuery<T> temporalQuery;
 
-    static final Java8TimeAdapter<Instant> instantAdapter =
-            new Java8TimeAdapter<>(ISO_OFFSET_DATE_TIME, ISO_INSTANT, Instant::from);
-    static final Java8TimeAdapter<LocalDate> localDateAdapter =
-            new Java8TimeAdapter<>(ISO_LOCAL_DATE, LocalDate::from);
-    static final Java8TimeAdapter<LocalDateTime> localDateTimeAdapter =
-            new Java8TimeAdapter<>(ISO_LOCAL_DATE_TIME, LocalDateTime::from);
-    static final Java8TimeAdapter<LocalTime> localTimeAdapter =
-            new Java8TimeAdapter<>(ISO_LOCAL_TIME, LocalTime::from);
-    static final Java8TimeAdapter<OffsetDateTime> offsetDateTimeAdapter =
-            new Java8TimeAdapter<>(ISO_OFFSET_DATE_TIME, OffsetDateTime::from);
-    static final Java8TimeAdapter<OffsetTime> offsetTimeAdapter =
-            new Java8TimeAdapter<>(ISO_OFFSET_TIME, OffsetTime::from);
-    static final Java8TimeAdapter<ZonedDateTime> zonedDateTimeAdapter =
-            new Java8TimeAdapter<>(ISO_ZONED_DATE_TIME, ZonedDateTime::from);
-
-    public Java8TimeAdapter(DateTimeFormatter dtf, TemporalQuery<T> temporalQuery) {
-        this(dtf, dtf, temporalQuery);
+    /**
+     * Create a Java8TimeAdapter instance to deal with type T
+     *
+     * @param formatter     the formatter to decode and encode DateTime
+     * @param temporalQuery the function to construct and convert type T instance
+     */
+    public Java8TimeAdapter(DateTimeFormatter formatter, TemporalQuery<T> temporalQuery) {
+        this(formatter, formatter, temporalQuery);
     }
 
-    public Java8TimeAdapter(final DateTimeFormatter readFormatter, final DateTimeFormatter writeFormatter,
-                            final TemporalQuery<T> temporalQuery) {
-        this.readFormatter = readFormatter;
-        this.writeFormatter = writeFormatter;
+    /**
+     * Create a Java8TimeAdapter instance to deal with type T
+     *
+     * @param readFormatter  the formatter to decode DateTime
+     * @param writeFormatter the formatter to encode DateTime
+     * @param temporalQuery  the function to construct and convert type T instance
+     */
+    public Java8TimeAdapter(DateTimeFormatter readFormatter, DateTimeFormatter writeFormatter,
+                            TemporalQuery<T> temporalQuery) {
+        this.readFormatter = Objects.requireNonNull(readFormatter);
+        this.writeFormatter = Objects.requireNonNull(writeFormatter);
         this.temporalQuery = temporalQuery;
     }
 

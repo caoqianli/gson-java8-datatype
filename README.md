@@ -5,7 +5,7 @@ Java8 data type(Optional and DateTime) module for gson
 <dependency>
     <groupId>net.dongliu</groupId>
     <artifactId>gson-java8-datatype</artifactId>
-    <version>1.0.3</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
@@ -16,7 +16,7 @@ Gson gson = new GsonBuilder().registerTypeAdapterFactory(new GsonJava8TypeAdapte
 ```
 
 
-## Optinal Types
+## Optional Types
 Empty Optional value is treated as null; Non-empty optional value is treat as optional.get() 
 ```java
 gson.toJson(OptionalInt.of(10)); // 10
@@ -37,7 +37,10 @@ gson.fromJson("null", Optional.class); // = Optional.empty()
 ```
 
 ## DateTime Types
-Java8 new datetime types serialized using ISO-9601 format 
+
+### Default Setting
+
+Java8 new datetime types serialized using ISO-9601 format by default.
 
 ```java
 ZoneId zoneId = ZoneId.of("Asia/Shanghai");
@@ -65,4 +68,19 @@ Period period = Period.ofDays(1);
 gson.toJson(period); // "P1D"
 Duration duration = Duration.ofDays(1);
 gson.toJson(period); // "P1D"
+```
+
+### Custom DateTimeFormatter
+
+GsonJava8TypeAdapterFactory has methods for setting custom DateTimeFormatter of Type Instant/LocalDateTime/OffsetDateTime etc..
+
+```java
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH)
+        .withZone(ZoneId.of("Asia/Shanghai"));
+GsonJava8TypeAdapterFactory typeAdapterFactory = new GsonJava8TypeAdapterFactory()
+        .setInstantFormatter(formatter);
+Gson gson = new GsonBuilder().registerTypeAdapterFactory(typeAdapterFactory).create();
+Instant instant = Instant.ofEpochMilli(1457595643101L);
+assertEquals("\"2016-03-10 15:40:43.101\"", gson.toJson(instant));
+assertEquals(instant, gson.fromJson("\"2016-03-10 15:40:43.101\"", Instant.class));
 ```
